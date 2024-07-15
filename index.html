@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda - Pemesanan Tiket Pesawat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Pemesanan Tiket Pesawat </h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="pencarian-tiket.html">Pencarian Tiket</a></li>
+                <li><a href="tentang-kami.html">Tentang Kami</a></li>
+                <li><a href="hubungi-kami.html">Hubungi Kami</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Cari Tiket Pesawat</h1>
+        <p>Selamat Datang di Situs Pemesanan Tiket Pesawat!</p>
+        <p>Temukan penerbangan impian Anda dengan mudah dan cepat di Situs Pemesanan Tiket Pesawat. Kami menyediakan berbagai pilihan penerbangan dengan harga terbaik untuk tujuan domestik dan internasional.</p>
+        <p><strong>Pencarian Mudah</strong>: Cukup masukkan rute dan tanggal perjalanan Anda, dan kami akan mencari penerbangan terbaik untuk Anda.</p>
+        <p><strong>Harga Terbaik</strong>: Kami bekerja sama dengan maskapai ternama untuk memberikan Anda harga yang kompetitif.</p>
+        <p><strong>Layanan Pelanggan 24/7</strong>: Tim kami siap membantu Anda kapan saja, di mana saja.</p>
+        <p>Mulailah pencarian Anda sekarang dan nikmati perjalanan yang nyaman bersama Situs Pemesanan Tiket Pesawat.</p>
+        <p><strong>Selamat Terbang!</strong></p>
+        <h3>Tiket yang Sudah Dipesan:</h3>
+        <div id="ticketList">
+            <!-- Daftar tiket akan muncul di sini -->
+        </div>
+    </div>
+    <footer>
+        © 2024 Website Pemesanan Tiket Pesawat
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let tickets = localStorage.getItem('tickets');
+            if (tickets) {
+                tickets = JSON.parse(tickets);
+                const ticketList = document.getElementById('ticketList');
+                tickets.forEach(ticket => {
+                    const ticketDiv = document.createElement('div');
+                    ticketDiv.classList.add('flight-details');
+                    ticketDiv.innerHTML = `
+                        <h3>Tiket dari ${ticket.from} ke ${ticket.to}</h3>
+                        <p>Tanggal Keberangkatan: ${ticket.departure}</p>
+                        ${ticket.returnDate ? `<p>Tanggal Kembali: ${ticket.returnDate}</p>` : ''}
+                        <p>Jumlah Penumpang: ${ticket.passengers}</p>
+                    `;
+                    ticketList.appendChild(ticketDiv);
+                });
+            } else {
+                document.getElementById('ticketList').innerHTML = '<p>Belum ada tiket yang dipesan.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

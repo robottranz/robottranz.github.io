@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencarian Tiket Pesawat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Cari Tiket Pesawat</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="pencarian-tiket.html">Pencarian Tiket</a></li>
+                <li><a href="tentang-kami.html">Tentang Kami</a></li>
+                <li><a href="hubungi-kami.html">Hubungi Kami</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h2>Pencarian Tiket Pesawat</h2>
+        <form id="ticketForm">
+            <label for="from">Dari:</label>
+            <input type="text" id="from" name="from" required>
+
+            <label for="to">Ke:</label>
+            <input type="text" id="to" name="to" required>
+
+            <label for="departure">Tanggal Keberangkatan:</label>
+            <input type="date" id="departure" name="departure" required>
+
+            <label for="return">Tanggal Kembali:</label>
+            <input type="date" id="return" name="return">
+
+            <label for="passengers">Jumlah Penumpang:</label>
+            <input type="number" id="passengers" name="passengers" min="1" max="10" required>
+
+            <button type="submit">Cari Tiket</button>
+        </form>
+    </div>
+    <footer>
+        © 2024 Website Pemesanan Tiket Pesawat
+    </footer>
+
+    <script>
+        document.getElementById('ticketForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const from = document.getElementById('from').value;
+            const to = document.getElementById('to').value;
+            const departure = document.getElementById('departure').value;
+            const returnDate = document.getElementById('return').value;
+            const passengers = document.getElementById('passengers').value;
+
+            const ticket = {
+                from,
+                to,
+                departure,
+                returnDate,
+                passengers
+            };
+
+            let tickets = localStorage.getItem('tickets');
+            if (tickets) {
+                tickets = JSON.parse(tickets);
+            } else {
+                tickets = [];
+            }
+
+            tickets.push(ticket);
+            localStorage.setItem('tickets', JSON.stringify(tickets));
+
+            alert('Tiket berhasil dipesan!');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
